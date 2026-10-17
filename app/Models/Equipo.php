@@ -1,0 +1,37 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Equipo extends Model
+{
+    protected $fillable = [
+        'nombre',
+        'ciudad',
+        'entrenador',
+        'activo',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'activo' => 'boolean',
+        ];
+    }
+
+    public function jugadores(): HasMany
+    {
+        return $this->hasMany(Jugador::class);
+    }
+
+    public function partidosComoLocal(): HasMany
+    {
+        return $this->hasMany(Partido::class, 'equipo_local_id');
+    }
+
+    public function partidosComoVisitante(): HasMany
+    {
+        return $this->hasMany(Partido::class, 'equipo_visitante_id');
+    }
+}
