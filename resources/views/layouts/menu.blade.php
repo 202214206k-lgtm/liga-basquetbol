@@ -1,27 +1,21 @@
-
-<nav style="background:#1e293b;padding:18px 22px;border-radius:8px;
-            margin-bottom:25px;display:flex;justify-content:space-between;
-            align-items:center;flex-wrap:wrap;gap:15px;">
-
-    <a href="{{ url('/') }}"
-       style="color:white;font-size:20px;font-weight:bold;text-decoration:none;">
+ <nav class="menu">
+    <a href="{{ url('/') }}" class="logo">
         🏀 Liga Básquetbol
     </a>
 
-    <div style="display:flex;flex-wrap:wrap;gap:10px;">
-        <a href="{{ route('equipos.index') }}"
-           style="color:white;text-decoration:none;padding:9px 12px;">
-            Equipos
-        </a>
+    <div class="menu-enlaces">
+        <a href="{{ url('/') }}" class="menu-enlace">Inicio</a>
+        <a href="{{ route('equipos.index') }}" class="menu-enlace">Equipos</a>
+        <a href="{{ route('jugadores.index') }}" class="menu-enlace">Jugadores</a>
+        <a href="{{ route('partidos.index') }}" class="menu-enlace">Partidos</a>
 
-        <a href="{{ route('jugadores.index') }}"
-           style="color:white;text-decoration:none;padding:9px 12px;">
-            Jugadores
-        </a>
+        @auth
+            <span class="usuario">{{ Auth::user()->name }}</span>
 
-        <a href="{{ route('partidos.index') }}"
-           style="color:white;text-decoration:none;padding:9px 12px;">
-            Partidos
-        </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn-salir">Cerrar sesión</button>
+            </form>
+        @endauth
     </div>
 </nav>

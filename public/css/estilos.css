@@ -1,0 +1,151 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 28px;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 18px 24px;
+    margin-bottom: 32px;
+    background: #0f172a;
+    border-radius: 14px;
+    box-shadow: 0 5px 15px #0f172a1a;
+}
+
+.logo {
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.menu-enlaces {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.menu-enlace {
+    padding: 10px 13px;
+    color: #cbd5e1;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.menu-enlace:hover {
+    color: white;
+    background: #334155;
+}
+
+.usuario {
+    color: #cbd5e1;
+    padding: 8px;
+}
+
+.menu-enlaces form {
+    margin: 0;
+}
+
+.btn-salir {
+    padding: 10px 14px;
+    color: white;
+    background: #dc2626;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.btn-salir:hover {
+    background: #b91c1c;
+}
+
+h1 {
+    margin-bottom: 8px;
+    font-size: 30px;
+}
+
+.descripcion {
+    margin-bottom: 30px;
+    color: #64748b;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.tarjeta {
+    padding: 25px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid #2563eb;
+    border-radius: 13px;
+    box-shadow: 0 4px 12px #0f172a0a;
+}
+
+.tarjeta h2 {
+    margin-top: 0;
+    color: #64748b;
+    font-size: 16px;
+}
+
+.numero {
+    margin: 18px 0;
+    color: #0f172a;
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.enlace {
+    display: inline-block;
+    margin-top: 8px;
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.enlace:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 14px;
+    }
+
+    .menu {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    .menu-enlaces {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
