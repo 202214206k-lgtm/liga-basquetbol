@@ -4,99 +4,213 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar jugador</title>
+
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            margin: 40px;
+        .formulario-contenedor {
+            max-width: 650px;
+            margin: 0 auto;
         }
 
-        form {
-            max-width: 500px;
-            padding: 25px;
+        .subtitulo {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .formulario {
+            padding: 30px;
             background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px #0f172a0a;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            background: white;
+            font-size: 15px;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px #2563eb20;
+        }
+
+        .errores {
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            color: #991b1b;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
             border-radius: 8px;
         }
 
-        label { display: block; margin-top: 15px; }
-
-        input, select {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 10px;
-            margin-top: 6px;
+        .botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
         }
 
-        button, a {
+        .boton-formulario {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
+            padding: 12px 17px;
             border: none;
-            border-radius: 5px;
+            border-radius: 7px;
             text-decoration: none;
+            font-size: 14px;
             cursor: pointer;
         }
 
-        button { background: #2563eb; color: white; }
-        a { background: #e5e7eb; color: #111827; }
+        .guardar {
+            color: white;
+            background: #2563eb;
+        }
 
-        .error { color: #dc2626; }
+        .guardar:hover {
+            background: #1d4ed8;
+        }
+
+        .volver {
+            color: #334155;
+            background: #e2e8f0;
+        }
+
+        .volver:hover {
+            background: #cbd5e1;
+        }
+
+        @media (max-width: 650px) {
+            .formulario {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
+
 <body>
-    @include('layouts.menu')
+    <div class="contenedor">
+        @include('layouts.menu')
 
-    <h1>Registrar jugador</h1>
+        <main class="formulario-contenedor">
+            <h1>Registrar jugador</h1>
 
-    @if ($errors->any())
-        <div class="error">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            <p class="subtitulo">
+                Completa los datos del jugador y selecciona su equipo.
+            </p>
 
-    <form action="{{ route('jugadores.store') }}" method="POST">
-        @csrf
+            @if ($errors->any())
+                <div class="errores">
+                    <strong>Revisa los siguientes campos:</strong>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-        <label>Nombres *</label>
-        <input type="text" name="nombres"
-               value="{{ old('nombres') }}" required>
+            <form
+                class="formulario"
+                action="{{ route('jugadores.store') }}"
+                method="POST">
 
-        <label>Apellidos *</label>
-        <input type="text" name="apellidos"
-               value="{{ old('apellidos') }}" required>
+                @csrf
 
-        <label>Dorsal *</label>
-        <input type="number" name="dorsal"
-               min="0" max="99" value="{{ old('dorsal') }}" required>
+                <div class="campo">
+                    <label for="nombres">Nombres *</label>
+                    <input
+                        type="text"
+                        id="nombres"
+                        name="nombres"
+                        value="{{ old('nombres') }}"
+                        required>
+                </div>
 
-        <label>Posición</label>
-        <select name="posicion">
-            <option value="">Seleccionar posición</option>
-            <option value="Base">Base</option>
-            <option value="Escolta">Escolta</option>
-            <option value="Alero">Alero</option>
-            <option value="Ala-pívot">Ala-pívot</option>
-            <option value="Pívot">Pívot</option>
-        </select>
+                <div class="campo">
+                    <label for="apellidos">Apellidos *</label>
+                    <input
+                        type="text"
+                        id="apellidos"
+                        name="apellidos"
+                        value="{{ old('apellidos') }}"
+                        required>
+                </div>
 
-        <label>Equipo *</label>
-        <select name="equipo_id" required>
-            <option value="">Seleccionar equipo</option>
-            @foreach ($equipos as $equipo)
-                <option value="{{ $equipo->id }}"
-                    {{ old('equipo_id') == $equipo->id ? 'selected' : '' }}>
-                    {{ $equipo->nombre }}
-                </option>
-            @endforeach
-        </select>
+                <div class="campo">
+                    <label for="dorsal">Dorsal *</label>
+                    <input
+                        type="number"
+                        id="dorsal"
+                        name="dorsal"
+                        min="0"
+                        max="99"
+                        value="{{ old('dorsal') }}"
+                        required>
+                </div>
 
-        <button type="submit">Guardar jugador</button>
-        <a href="{{ route('jugadores.index') }}">Volver</a>
-    </form>
+                <div class="campo">
+                    <label for="posicion">Posición</label>
+                    <select id="posicion" name="posicion">
+                        <option value="">Seleccionar posición</option>
+                        @foreach (['Base', 'Escolta', 'Alero', 'Ala-pívot', 'Pívot'] as $posicion)
+                            <option
+                                value="{{ $posicion }}"
+                                {{ old('posicion') == $posicion ? 'selected' : '' }}>
+                                {{ $posicion }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
+                <div class="campo">
+                    <label for="equipo_id">Equipo *</label>
+                    <select id="equipo_id" name="equipo_id" required>
+                        <option value="">Seleccionar equipo</option>
+
+                        @foreach ($equipos as $equipo)
+                            <option
+                                value="{{ $equipo->id }}"
+                                {{ old('equipo_id') == $equipo->id ? 'selected' : '' }}>
+                                {{ $equipo->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="botones">
+                    <button type="submit" class="boton-formulario guardar">
+                        Guardar jugador
+                    </button>
+
+                    <a
+                        href="{{ route('jugadores.index') }}"
+                        class="boton-formulario volver">
+                        Volver
+                    </a>
+                </div>
+            </form>
+        </main>
+    </div>
 </body>
 </html>
+```
